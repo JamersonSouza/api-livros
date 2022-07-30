@@ -29,4 +29,12 @@ public class CategoriaService {
         return catrep.findAll();
     }
 
+    //metodo de criar uma categoria
+    public Categoria create(Categoria obj){
+
+        obj.setId(null);
+        return catrep.save(obj);
+
+    }
+
 }
