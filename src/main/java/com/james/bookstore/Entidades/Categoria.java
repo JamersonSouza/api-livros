@@ -31,7 +31,9 @@ public class Categoria implements Serializable{
 
     
     //construtores
-    
+    public Categoria(){
+        
+    }
    
     
     public Categoria(Long id, String nome, String descricao) {
