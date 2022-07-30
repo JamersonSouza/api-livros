@@ -40,5 +40,19 @@ public class LivroService {
       return livrorep.findAll();
     }
 
+    //atualizar livro
+    public Livro update(Long id, Livro obj) {
+        Livro newObj = findById(id);
+        updateData(newObj, obj);
+        return livrorep.save(newObj);
+
+    }
+    //método responsável por pegar as informações e inserir na atualização do livro
+    private void updateData(Livro newObj, Livro obj) {
+        newObj.setTitulo(obj.getTitulo());
+        newObj.setNomeAutor(obj.getNomeAutor());
+        newObj.setTexto(obj.getTexto());
+    }
+
     
 }
