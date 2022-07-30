@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.james.bookstore.DTO.CategoriaDTO;
@@ -48,7 +49,15 @@ public class CategoriaService {
     //metodo de deletar categoria
     public void deleteCategoria(Long id) {
         findById(id);
-        catrep.deleteById(id);
+        try {
+            catrep.deleteById(id);
+        } catch (DataIntegrityViolationException e) { //a exceção deve vir do pacote do spring
+            
+            throw new com.james.bookstore.ServiceExceptions.DataIntegrityViolationException
+            ("Categoria não pode ser deletada! Possui Livros Associados");
+            
+        }
+       
     }
 
 }
