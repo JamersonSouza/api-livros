@@ -45,4 +45,10 @@ public class CategoriaService {
         return catrep.save(obj);
     }
 
+    //metodo de deletar categoria
+    public void deleteCategoria(Long id) {
+        findById(id);
+        catrep.deleteById(id);
+    }
+
 }
