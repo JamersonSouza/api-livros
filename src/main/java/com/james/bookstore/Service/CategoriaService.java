@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.james.bookstore.Entidades.Categoria;
+import com.james.bookstore.ServiceExceptions.ObjectNotFoundException;
 import com.james.bookstore.repositories.CategoriaRepositorio;
 
 @Service
@@ -17,7 +18,10 @@ public class CategoriaService {
 
     public Categoria findById(Long id){
         Optional<Categoria> obj = catrep.findById(id);
-        return obj.orElse(null);
-    }
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+            "Objeto não encontrado! Id: " + id + 
+            " Tipo: " + Categoria.class.getName()));
     
+    } 
+
 }
