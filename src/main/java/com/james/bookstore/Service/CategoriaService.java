@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.james.bookstore.DTO.CategoriaDTO;
 import com.james.bookstore.Entidades.Categoria;
 import com.james.bookstore.ServiceExceptions.ObjectNotFoundException;
 import com.james.bookstore.repositories.CategoriaRepositorio;
@@ -35,6 +36,13 @@ public class CategoriaService {
         obj.setId(null);
         return catrep.save(obj);
 
+    }
+
+    public Categoria updateCategoria(Long id, CategoriaDTO objDTO) {
+        Categoria obj = findById(id);
+        obj.setNome(objDTO.getNome());
+        obj.setDescricao(objDTO.getDescricao());
+        return catrep.save(obj);
     }
 
 }

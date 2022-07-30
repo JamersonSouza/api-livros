@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,13 +26,13 @@ public class CategoriaResource {
 
     @Autowired
     private CategoriaService categoriaService;
-
+    //metodo de listar categorias por id
     @GetMapping(value = "/{id}")
     public ResponseEntity<Categoria> findById(@PathVariable Long id){
         Categoria obj = categoriaService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
-    
+    //metodo que lista todas as categorias sem um id
     @GetMapping()
     public ResponseEntity<List<CategoriaDTO>> findAll(){
         List<Categoria> list = categoriaService.findAll();
@@ -40,6 +41,7 @@ public class CategoriaResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
+    //metodo para salvar uma categoria
     @PostMapping
     public ResponseEntity<Categoria> create(@RequestBody Categoria obj){
         obj = categoriaService.create(obj);
@@ -47,4 +49,9 @@ public class CategoriaResource {
         return ResponseEntity.created(uri).body(obj);
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CategoriaDTO> updateCategoria(@PathVariable Long id, @RequestBody CategoriaDTO objDTO){
+        Categoria newObj = categoriaService.updateCategoria(id, objDTO);
+        return ResponseEntity.ok().body(new CategoriaDTO(newObj));
+    }
 }
