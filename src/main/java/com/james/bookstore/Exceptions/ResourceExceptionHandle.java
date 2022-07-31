@@ -1,6 +1,5 @@
 package com.james.bookstore.Exceptions;
 
-import javax.servlet.ServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,7 @@ import com.james.bookstore.ServiceExceptions.ObjectNotFoundException;
 public class ResourceExceptionHandle {
 
     @ExceptionHandler(ObjectNotFoundException.class)
-    public ResponseEntity<StandardErrors> objectNotFoundException(ObjectNotFoundException e, ServletRequest request){
+    public ResponseEntity<StandardErrors> objectNotFoundException(ObjectNotFoundException e){
         StandardErrors error = new StandardErrors(System.currentTimeMillis(), 
         HttpStatus.NOT_FOUND.value(),
          e.getMessage());
@@ -25,7 +24,7 @@ public class ResourceExceptionHandle {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<StandardErrors> dataIntegrityViolationException(DataIntegrityViolationException e, ServletRequest request){
+    public ResponseEntity<StandardErrors> dataIntegrityViolationException(DataIntegrityViolationException e){
         StandardErrors error = new StandardErrors(System.currentTimeMillis(), 
         HttpStatus.BAD_REQUEST.value(),
          e.getMessage());
@@ -36,7 +35,7 @@ public class ResourceExceptionHandle {
     
     
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<StandardErrors> validationErros(MethodArgumentNotValidException e, ServletRequest request){
+    public ResponseEntity<StandardErrors> validationErros(MethodArgumentNotValidException e){
         ValidationError error = new ValidationError(System.currentTimeMillis(), 
         HttpStatus.BAD_REQUEST.value(),
          "Erro na validação dos campos");
