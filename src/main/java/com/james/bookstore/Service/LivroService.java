@@ -54,5 +54,11 @@ public class LivroService {
         newObj.setTexto(obj.getTexto());
     }
 
+    public void deletebook(Long id) {
+
+        Livro obj = findById(id);
+        livrorep.delete(obj);
+    }
+
     
 }
