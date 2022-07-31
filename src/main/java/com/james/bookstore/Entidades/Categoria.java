@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Categoria implements Serializable{
@@ -21,7 +24,11 @@ public class Categoria implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+    @NotEmpty(message = "Campo Nome não pode ser vazio")
+    @Length(min = 3, max = 100, message = "Campo Nome deve conter entre 3 a 100 caracteres")
     private String nome;
+    @NotEmpty(message = "Campo Descrição não pode ser vazio")
+    @Length(min = 3, max = 200, message = "Campo Descrição deve conter entre 3 a 200 caracteres")
     private String descricao;
 
     //relacionamento 1 categoria pode ter varios livros

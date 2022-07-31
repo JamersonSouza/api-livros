@@ -4,8 +4,11 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +24,7 @@ import com.james.bookstore.DTO.LivroDTO;
 import com.james.bookstore.Entidades.Livro;
 import com.james.bookstore.Service.LivroService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/livros")
 public class LivroResource {
@@ -60,7 +64,7 @@ public class LivroResource {
     //método para salvar um livro
     @PostMapping()
     public ResponseEntity<Livro> saveBook(@RequestParam(value = "categoria", defaultValue = "0") Long categoria_id,
-    @RequestBody Livro book){
+    @Valid @RequestBody Livro book){
 
         book = livroService.savebook(categoria_id, book);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/livros/{id}").buildAndExpand(book.getId()).toUri();
@@ -69,7 +73,7 @@ public class LivroResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Livro> updateBook(@PathVariable Long id, @RequestBody Livro obj){
+    public ResponseEntity<Livro> updateBook(@PathVariable Long id, @Valid @RequestBody Livro obj){
 
         Livro newObj = livroService.update(id, obj);
         return ResponseEntity.ok().body(newObj);
