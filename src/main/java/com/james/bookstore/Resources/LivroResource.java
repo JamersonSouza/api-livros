@@ -24,9 +24,9 @@ import com.james.bookstore.DTO.LivroDTO;
 import com.james.bookstore.Entidades.Livro;
 import com.james.bookstore.Service.LivroService;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/livros")
+@CrossOrigin(origins = "http://localhost:4200")
 public class LivroResource {
     
 
